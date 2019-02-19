@@ -20,4 +20,27 @@ public abstract class ComputerForm {
         $(COMPANY_SELECTOR).selectOptionContainingText(companyName);
     }
 
+    @Step
+    public String getCompanyName() {
+
+        return $(COMPUTER_NAME_INPUT).val();
+    }
+
+    @Step
+    public String getIntroducedDate() {
+
+        return $(INTRODUCED_DATE_INPUT).val();
+    }
+
+    @Step
+    public String getDiscontinuedDate() {
+
+        return $(DISCONTINUED_DATE_INPUT).val();
+    }
+
+    @Step
+    public String getCompany() {
+
+        return $(COMPANY_SELECTOR).getSelectedText();
+    }
 }
