@@ -15,7 +15,7 @@ public class NewComputerPage extends ComputerForm {
     }
 
     @Step
-    public BasePage fillAndSuccessfulSubmitComputerForm(String name, String startDate, String endDate, String companyName) {
+    public BasePage fillAndSubmitComputerForm(String name, String startDate, String endDate, String companyName) {
         fillComputerForm(name, startDate, endDate, companyName);
         submitComputerForm();
 

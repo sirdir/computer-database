@@ -24,7 +24,7 @@ public class CrudComputerTest extends BaseTest{
 
         String actualMessage = open(BASE_URL, BasePage.class)
                 .addNewPC()
-                .fillAndSuccessfulSubmitComputerForm(createComputerName, startDate, endDate, companyName)
+                .fillAndSubmitComputerForm(createComputerName, startDate, endDate, companyName)
                 .getMessage();
 
         Assert.assertEquals(actualMessage, expMessage, "alert message");
