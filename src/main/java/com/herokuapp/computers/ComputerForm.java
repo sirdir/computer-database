@@ -1,7 +1,9 @@
 package com.herokuapp.computers;
 
+import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
 
@@ -18,6 +20,13 @@ public abstract class ComputerForm {
         $(INTRODUCED_DATE_INPUT).val(startDate);
         $(DISCONTINUED_DATE_INPUT).val(endDate);
         $(COMPANY_SELECTOR).selectOptionContainingText(companyName);
+    }
+
+    @Step
+    void fillComputerForm(String name, String startDate, String endDate) {
+        $(COMPUTER_NAME_INPUT).val(name);
+        $(INTRODUCED_DATE_INPUT).val(startDate);
+        $(DISCONTINUED_DATE_INPUT).val(endDate);
     }
 
     @Step
@@ -42,5 +51,23 @@ public abstract class ComputerForm {
     public String getCompany() {
 
         return $(COMPANY_SELECTOR).getSelectedText();
+    }
+
+    @Step
+    public boolean isIntroducedValidationHighlighted() {
+
+        return $(INTRODUCED_DATE_INPUT)
+                .parent()
+                .parent()
+                .is(cssClass("error"));
+    }
+
+    @Step
+    public boolean isDiscontinuedValidationHighlighted() {
+
+        return $(DISCONTINUED_DATE_INPUT)
+                .parent()
+                .parent()
+                .is(cssClass("error"));
     }
 }

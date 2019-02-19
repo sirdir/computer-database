@@ -8,6 +8,8 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
 
+    private final String INTRODUCED_DATE = "tbody > tr > td:nth-child(2)";
+    private final String DISCONTINUED_DATE = "tbody > tr > td:nth-child(3)";
     private final String COMPANY_NAME_LINK = ".computers td > a";
     private final String ADD_BUTTON = "#add";
     private final String SEARCH_INPUT = "#searchbox";
@@ -41,5 +43,17 @@ public class BasePage {
         $$(COMPANY_NAME_LINK).first().click();
 
         return page(ExistedComputerPage.class);
+    }
+
+    @Step
+    public String getIntroducedDate() {
+
+        return $(INTRODUCED_DATE).text();
+    }
+
+    @Step
+    public String getDiscontinuedDate() {
+
+        return $(DISCONTINUED_DATE).text();
     }
 }

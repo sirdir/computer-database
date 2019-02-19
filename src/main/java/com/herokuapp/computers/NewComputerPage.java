@@ -22,4 +22,20 @@ public class NewComputerPage extends ComputerForm {
         return page(BasePage.class);
     }
 
+    @Step
+    public BasePage fillAndSubmitComputerForm(String name, String startDate, String endDate) {
+        fillComputerForm(name, startDate, endDate);
+        submitComputerForm();
+
+        return page(BasePage.class);
+    }
+
+    @Step
+    public NewComputerPage fillAndSubmitComputerFormNegative(String name, String startDate, String endDate) {
+        fillComputerForm(name, startDate, endDate);
+        submitComputerForm();
+
+        return this;
+    }
+
 }
