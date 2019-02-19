@@ -8,9 +8,8 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class CrudComputerTest extends BaseTest{
 
-    private final String BASE_URL = "http://computer-database.herokuapp.com/computers";
     private String createComputerName = "pc_" + System.nanoTime();
-    private String startDate = "0000-01-01";
+    private String startDate = "2010-01-01";
     private String endDate = "2020-01-01";
     private String companyName = "IBM";
     private String changedComputerName = "new_pc_" + System.nanoTime();
