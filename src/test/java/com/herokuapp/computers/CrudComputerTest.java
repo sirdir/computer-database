@@ -11,15 +11,24 @@ public class CrudComputerTest extends BaseTest{
 
     @Test
     public void createComputer() {
-        open(BASE_URL, Page.class)
+        String expName = "pc" + System.nanoTime();
+        String expMessage = String.format("Done! Computer %s has been created", expName);
+        String startDate = "0000-01-01";
+        String endDate = "2020-01-01";
+        String companyName = "IBM";
+
+        String actualMessage = open(BASE_URL, BasePage.class)
                 .addNewPC()
-                ;
+                .fillAndSuccessfulSubmitComputerForm(expName, startDate, endDate, companyName)
+                .getMessage();
+
+        Assert.assertEquals(actualMessage, expMessage, "alert message");
     }
 
     @Test(dependsOnMethods = "createComputer")
     public void readComputer() {
-        open(BASE_URL, Page.class);
-        Assert.fail("Hello world!");
+        open(BASE_URL, BasePage.class);
+        Assert.fail("Hello world!"); //for debug
     }
 
     @Test(dependsOnMethods = "readComputer")
