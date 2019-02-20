@@ -24,15 +24,7 @@ public class NewComputerPage extends ComputerForm {
     }
 
     @Step
-    public BasePage fillAndSubmitComputerForm(String name, String startDate, String endDate) {
-        fillComputerForm(name, startDate, endDate);
-        submitComputerForm();
-
-        return page(BasePage.class);
-    }
-
-    @Step
-    public NewComputerPage fillAndSubmitComputerFormFatal(String name, String startDate, String endDate) {
+    public NewComputerPage fillAndSubmitComputerFormNegative(String name, String startDate, String endDate) {
         fillComputerForm(name, startDate, endDate);
         submitComputerForm();
 
@@ -51,6 +43,14 @@ public class NewComputerPage extends ComputerForm {
         submitComputerForm();
 
         return page(ErrorHerokuPage.class);
+    }
+
+    @Step
+    public BasePage fillAndSubmitComputerForm(String name) {
+        fillComputerForm(name);
+        submitComputerForm();
+
+        return page(BasePage.class);
     }
 
     @Step

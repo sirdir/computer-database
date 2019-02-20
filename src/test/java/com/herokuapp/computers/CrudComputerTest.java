@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 
 public class CrudComputerTest extends BaseTest{
 
@@ -16,12 +17,15 @@ public class CrudComputerTest extends BaseTest{
     private String changedStartDate = "2018-05-30";
     private String changedEndDate = "2023-10-03";
     private String changedCompanyName = "ASUS";
+    private String createMsg = "Done! Computer %s has been created";
+    private String updateMsg = "Done! Computer %s has been updated";
+    private String deleteMsg = "Done! Computer has been deleted";
 
     @Test
     public void createComputer() {
-        String expMessage = String.format("Done! Computer %s has been created", createComputerName);
+        String expMessage = String.format(createMsg, createComputerName);
 
-        String actualMessage = open(BASE_URL, BasePage.class)
+        String actualMessage = page(BasePage.class)
                 .addNewPC()
                 .fillAndSubmitComputerForm(createComputerName, startDate, endDate, companyName)
                 .getMessage();
@@ -31,7 +35,7 @@ public class CrudComputerTest extends BaseTest{
 
     @Test(dependsOnMethods = "createComputer")
     public void readComputer() {
-        ExistedComputerPage compPage = open(BASE_URL, BasePage.class)
+        ExistedComputerPage compPage = page(BasePage.class)
                 .searchByName(createComputerName)
                 .openFirstComputer();
 
@@ -52,9 +56,9 @@ public class CrudComputerTest extends BaseTest{
 
     @Test(dependsOnMethods = "readComputer")
     public void updateComputer() {
-        String expMessage = String.format("Done! Computer %s has been updated", changedComputerName);
+        String expMessage = String.format(updateMsg, changedComputerName);
 
-        String actualMessage = open(BASE_URL, BasePage.class)
+        String actualMessage = page(BasePage.class)
                 .searchByName(createComputerName)
                 .openFirstComputer()
                 .fillAndSubmitComputerForm(changedComputerName, changedStartDate, changedEndDate, changedCompanyName)
@@ -65,15 +69,13 @@ public class CrudComputerTest extends BaseTest{
 
     @Test(dependsOnMethods = "updateComputer")
     public void deleteComputer() {
-        String expMessage = "Done! Computer has been deleted";
-
-        String actualMessage = open(BASE_URL, BasePage.class)
+        String actualMessage = page(BasePage.class)
                 .searchByName(changedComputerName)
                 .openFirstComputer()
                 .deleteComputer()
                 .getMessage();
 
-        Assert.assertEquals(actualMessage, expMessage, "alert message");
+        Assert.assertEquals(actualMessage, deleteMsg, "alert message");
     }
 
 }

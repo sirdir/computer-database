@@ -30,4 +30,13 @@ public class ExistedComputerPage extends ComputerForm {
         return page(BasePage.class);
     }
 
+
+    @Step
+    public ExistedComputerPage fillAndSubmitComputerFormNegative(String name) {
+        fillComputerForm(name);
+        submitComputerForm();
+
+        return this;
+    }
+
 }

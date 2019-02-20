@@ -41,10 +41,13 @@ public class DateTest extends BaseTest {
                 {"2019-02-29"},
                 {"2020-02-30"}, //leap
                 {"2019-04-31"},
+                //month
                 {"2019-00-01"},
                 {"2019-13-01"},
+                //year
                 {"1000000000-01-01"},
                 {"-0001-01-01"},
+                {"hello world"}
         };
     }
 
@@ -72,7 +75,7 @@ public class DateTest extends BaseTest {
 
         NewComputerPage computerPage = page(BasePage.class)
                 .addNewPC()
-                .fillAndSubmitComputerFormFatal(createComputerName, date, date);
+                .fillAndSubmitComputerFormNegative(createComputerName, date, date);
 
         SoftAssert sf = new SoftAssert();
         sf.assertTrue(computerPage.isIntroducedValidationHighlighted(), "red border");

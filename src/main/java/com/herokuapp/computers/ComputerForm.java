@@ -56,6 +56,8 @@ public abstract class ComputerForm {
         return $(COMPANY_SELECTOR).getSelectedText();
     }
 
+
+
     @Step
     public boolean isIntroducedValidationHighlighted() {
 

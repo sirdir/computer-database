@@ -1,11 +1,21 @@
 package com.herokuapp.computers;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.page;
 
 public class ComputerNameTest extends BaseTest {
+
+    @DataProvider
+    public Object[][] singleChars() {
+
+        return new Object[][] {
+                {"1"},
+                {"`"}
+        };
+    }
 
     @Test
     public void serverErrorTooLongRequest8KiB() {
@@ -19,16 +29,16 @@ public class ComputerNameTest extends BaseTest {
         Assert.assertEquals(message, "Application error");
     }
 
-    @Test
-    public void singleCharName() {
-        String createComputerName = "w";
+    @Test(dataProvider = "singleChars")
+    public void singleCharName(String name) {
 
-        String message = page(BasePage.class)
+        String actualName = page(BasePage.class)
                 .addNewPC()
-                .fillAndSubmitComputerFormFatal(createComputerName)
-                .getErrorMessage();
+                .fillAndSubmitComputerForm(name)
+                .searchByName(name)
+                .getFirstComputerName();
 
-        Assert.assertEquals(message, "Application error");
+        Assert.assertEquals(actualName, name, "name of company in first column of grid");
     }
 
     @Test
@@ -47,9 +57,13 @@ public class ComputerNameTest extends BaseTest {
     public void cantUpdateComputerNameToEmpty() {
         //todo
         String empty = "";
+        String cpName = "cp_" + System.nanoTime();
 
         boolean isValidationExist = page(BasePage.class)
                 .addNewPC()
+                .fillAndSubmitComputerForm(cpName)
+                .searchByName(cpName)
+                .openFirstComputer()
                 .fillAndSubmitComputerFormNegative(empty)
                 .isComputerNameValidationHighlighted();
 

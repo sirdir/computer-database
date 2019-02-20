@@ -62,4 +62,13 @@ public class BasePage {
 
         return LocalDate.parse(text, formatter);
     }
+
+    @Step
+    public String getFirstComputerName() {
+
+        return $$(COMPANY_NAME_LINK)
+                .first()
+                .text();
+    }
+
 }
