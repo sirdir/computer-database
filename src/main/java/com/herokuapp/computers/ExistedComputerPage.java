@@ -7,8 +7,8 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class ExistedComputerPage extends ComputerForm {
 
-    private final String SUBMIT_BUTTON = "input[value='Save this computer']";
-    private final String DELETE_BUTTON = "input[value='Delete this computer']";
+    private static final String SUBMIT_BUTTON = "input[value='Save this computer']";
+    private static final String DELETE_BUTTON = "input[value='Delete this computer']";
 
     @Step
     private void submitComputerForm() {

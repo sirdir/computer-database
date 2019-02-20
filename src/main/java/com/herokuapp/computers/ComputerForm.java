@@ -1,18 +1,17 @@
 package com.herokuapp.computers;
 
-import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.cssClass;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.page;
 
 public abstract class ComputerForm {
 
-    private final String COMPUTER_NAME_INPUT = "#name";
-    private final String INTRODUCED_DATE_INPUT = "#introduced";
-    private final String DISCONTINUED_DATE_INPUT = "#discontinued";
-    private final String COMPANY_SELECTOR = "#company";
+    private static final String COMPUTER_NAME_INPUT = "#name";
+    private static final String INTRODUCED_DATE_INPUT = "#introduced";
+    private static final String DISCONTINUED_DATE_INPUT = "#discontinued";
+    private static final String COMPANY_SELECTOR = "#company";
 
     @Step
     void fillComputerForm(String name, String startDate, String endDate, String companyName) {
@@ -28,6 +27,10 @@ public abstract class ComputerForm {
         $(INTRODUCED_DATE_INPUT).val(startDate);
         $(DISCONTINUED_DATE_INPUT).val(endDate);
     }
+    @Step
+    void fillComputerForm(String name) {
+        $(COMPUTER_NAME_INPUT).val(name);
+     }
 
     @Step
     public String getCompanyName() {
@@ -57,6 +60,7 @@ public abstract class ComputerForm {
     public boolean isIntroducedValidationHighlighted() {
 
         return $(INTRODUCED_DATE_INPUT)
+                .should(visible)
                 .parent()
                 .parent()
                 .is(cssClass("error"));
@@ -66,6 +70,17 @@ public abstract class ComputerForm {
     public boolean isDiscontinuedValidationHighlighted() {
 
         return $(DISCONTINUED_DATE_INPUT)
+                .should(visible)
+                .parent()
+                .parent()
+                .is(cssClass("error"));
+    }
+
+    @Step
+    public boolean isComputerNameValidationHighlighted() {
+
+        return $(COMPUTER_NAME_INPUT)
+                .should(visible)
                 .parent()
                 .parent()
                 .is(cssClass("error"));

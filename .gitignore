@@ -5,3 +5,4 @@ out
 *.iml
 .allure
 allure-report
+allure-results
