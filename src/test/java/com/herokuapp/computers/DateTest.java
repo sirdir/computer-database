@@ -14,8 +14,6 @@ public class DateTest extends BaseTest {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("u-MM-dd");
 
 
-
-
     @Test(dataProvider = "positiveDateEdges", dataProviderClass = AllDataProviders.class)
     public void positiveDateEdge(String date) {
         String createComputerName = "pc_" + System.nanoTime();
@@ -42,6 +40,24 @@ public class DateTest extends BaseTest {
                 .addNewPC()
                 .fillAndSubmitComputerFormNegative(createComputerName, date, date);
 
+        SoftAssert sf = new SoftAssert();
+        sf.assertTrue(computerPage.isIntroducedValidationHighlighted(), "red border");
+        sf.assertTrue(computerPage.isDiscontinuedValidationHighlighted(), "red border");
+        sf.assertAll();
+    }
+
+    @Test
+    public void dateOfDispatchEarlierThanIntroduction() {
+        String createComputerName = "pc_" + System.nanoTime();
+        String intrDate = "2018-10-10";
+        String discDate = "2017-10-10";
+
+        NewComputerPage computerPage = page(BasePage.class)
+                .addNewPC()
+                .fillAndSubmitComputerFormNegative(createComputerName, intrDate, discDate);
+
+
+        //assume that expected behaviour is when dates fields must fail validation
         SoftAssert sf = new SoftAssert();
         sf.assertTrue(computerPage.isIntroducedValidationHighlighted(), "red border");
         sf.assertTrue(computerPage.isDiscontinuedValidationHighlighted(), "red border");
