@@ -1,5 +1,6 @@
 package com.herokuapp.computers;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.annotations.BeforeMethod;
@@ -14,11 +15,7 @@ public class BaseTest {
     @BeforeSuite
     public void setUp() {
         //todo verbose, consider of delete
+        Configuration.baseUrl = BASE_URL;
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
-    }
-
-    @BeforeMethod
-    public void openBaseUrl() {
-        open(BASE_URL);
     }
 }

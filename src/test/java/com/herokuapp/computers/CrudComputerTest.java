@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 
 public class CrudComputerTest extends BaseTest{
@@ -24,7 +25,7 @@ public class CrudComputerTest extends BaseTest{
     public void createComputer() {
         String expMessage = String.format(createMsg, createComputerName);
 
-        String actualMessage = page(BasePage.class)
+        String actualMessage = open(BASE_URL, BasePage.class)
                 .addNewPC()
                 .fillAndSubmitComputerForm(createComputerName, startDate, endDate, companyName)
                 .getMessage();
@@ -34,7 +35,7 @@ public class CrudComputerTest extends BaseTest{
 
     @Test(dependsOnMethods = "createComputer")
     public void readComputer() {
-        ExistedComputerPage compPage = page(BasePage.class)
+        ExistedComputerPage compPage = open(BASE_URL, BasePage.class)
                 .searchByName(createComputerName)
                 .openFirstComputer();
 
@@ -57,7 +58,7 @@ public class CrudComputerTest extends BaseTest{
     public void updateComputer() {
         String expMessage = String.format(updateMsg, changedComputerName);
 
-        String actualMessage = page(BasePage.class)
+        String actualMessage = open(BASE_URL, BasePage.class)
                 .searchByName(createComputerName)
                 .openFirstComputer()
                 .fillAndSubmitComputerForm(changedComputerName, changedStartDate, changedEndDate, changedCompanyName)
@@ -68,7 +69,7 @@ public class CrudComputerTest extends BaseTest{
 
     @Test(dependsOnMethods = "updateComputer")
     public void deleteComputer() {
-        String actualMessage = page(BasePage.class)
+        String actualMessage = open(BASE_URL, BasePage.class)
                 .searchByName(changedComputerName)
                 .openFirstComputer()
                 .deleteComputer()

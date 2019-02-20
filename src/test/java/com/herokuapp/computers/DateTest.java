@@ -6,6 +6,7 @@ import org.testng.asserts.SoftAssert;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 
 public class DateTest extends BaseTest {
@@ -15,49 +16,29 @@ public class DateTest extends BaseTest {
 
 
     @Test(dataProvider = "positiveDateEdges", dataProviderClass = AllDataProviders.class)
-    public void positiveDateEdge(String date) {
+    public void positiveDateEdge(String intrDate, String discDate) {
         String createComputerName = "pc_" + System.nanoTime();
 
-        BasePage basepage = page(BasePage.class)
-                .addNewPC()
-                .fillAndSubmitComputerForm(createComputerName, date, date, companyName)
+        BasePage basepage = open("/new", NewComputerPage.class)
+                .fillAndSubmitComputerForm(createComputerName, intrDate, discDate, companyName)
                 .searchByName(createComputerName);
 
         LocalDate actualIntrDate = basepage.getIntroducedLocalDate();
         LocalDate actualDiscDate = basepage.getDiscontinuedLocalDate();
 
         SoftAssert sf = new SoftAssert();
-        sf.assertEquals(actualIntrDate, LocalDate.parse(date, formatter));
-        sf.assertEquals(actualDiscDate, LocalDate.parse(date, formatter));
+        sf.assertEquals(actualIntrDate, LocalDate.parse(intrDate, formatter));
+        sf.assertEquals(actualDiscDate, LocalDate.parse(discDate, formatter));
         sf.assertAll();
     }
 
     @Test(dataProvider = "negativeDateEdges", dataProviderClass = AllDataProviders.class)
-    public void negativeDateEdge(String date) {
+    public void negativeDateEdge(String intrDate, String discDate) {
         String createComputerName = "pc_" + System.nanoTime();
 
-        NewComputerPage computerPage = page(BasePage.class)
-                .addNewPC()
-                .fillAndSubmitComputerFormNegative(createComputerName, date, date);
-
-        SoftAssert sf = new SoftAssert();
-        sf.assertTrue(computerPage.isIntroducedValidationHighlighted(), "red border");
-        sf.assertTrue(computerPage.isDiscontinuedValidationHighlighted(), "red border");
-        sf.assertAll();
-    }
-
-    @Test
-    public void dateOfDispatchEarlierThanIntroduction() {
-        String createComputerName = "pc_" + System.nanoTime();
-        String intrDate = "2018-10-10";
-        String discDate = "2017-10-10";
-
-        NewComputerPage computerPage = page(BasePage.class)
-                .addNewPC()
+        NewComputerPage computerPage = open("/new", NewComputerPage.class)
                 .fillAndSubmitComputerFormNegative(createComputerName, intrDate, discDate);
 
-
-        //assume that expected behaviour is when dates fields must fail validation
         SoftAssert sf = new SoftAssert();
         sf.assertTrue(computerPage.isIntroducedValidationHighlighted(), "red border");
         sf.assertTrue(computerPage.isDiscontinuedValidationHighlighted(), "red border");
