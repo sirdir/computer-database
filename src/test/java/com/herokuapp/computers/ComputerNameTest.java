@@ -1,21 +1,12 @@
 package com.herokuapp.computers;
 
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.page;
 
 public class ComputerNameTest extends BaseTest {
 
-    @DataProvider
-    public Object[][] singleChars() {
-
-        return new Object[][] {
-                {"1"},
-                {"`"}
-        };
-    }
 
     @Test
     public void serverErrorTooLongRequest8KiB() {
@@ -29,7 +20,7 @@ public class ComputerNameTest extends BaseTest {
         Assert.assertEquals(message, "Application error");
     }
 
-    @Test(dataProvider = "singleChars")
+    @Test(dataProvider = "singleChars", dataProviderClass = AllDataProviders.class)
     public void singleCharName(String name) {
 
         String actualName = page(BasePage.class)
@@ -55,7 +46,6 @@ public class ComputerNameTest extends BaseTest {
 
     @Test
     public void cantUpdateComputerNameToEmpty() {
-        //todo
         String empty = "";
         String cpName = "cp_" + System.nanoTime();
 

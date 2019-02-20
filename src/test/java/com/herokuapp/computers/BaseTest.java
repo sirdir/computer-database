@@ -13,7 +13,7 @@ public class BaseTest {
 
     @BeforeSuite
     public void setUp() {
-        //todo too verbose consider of delete
+        //todo verbose, consider of delete
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
     }
 
