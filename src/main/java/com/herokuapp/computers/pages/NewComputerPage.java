@@ -1,4 +1,4 @@
-package com.herokuapp.computers;
+package com.herokuapp.computers.pages;
 
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Step;
@@ -16,16 +16,16 @@ public class NewComputerPage extends ComputerForm {
     }
 
     @Step
-    public BasePage fillAndSubmitComputerForm(String name, String startDate, String endDate, String companyName) {
-        fillComputerForm(name, startDate, endDate, companyName);
+    public BasePage fillAndSubmitComputerForm(String name, String intrDate, String discDate, String companyName) {
+        fillComputerForm(name, intrDate, discDate, companyName);
         submitComputerForm();
 
         return page(BasePage.class);
     }
 
     @Step
-    public NewComputerPage fillAndSubmitComputerFormNegative(String name, String startDate, String endDate) {
-        fillComputerForm(name, startDate, endDate);
+    public NewComputerPage fillAndSubmitComputerFormNegative(String name, String intrDate, String discDate) {
+        fillComputerForm(name, intrDate, discDate);
         submitComputerForm();
 
         return this;

@@ -1,4 +1,4 @@
-package com.herokuapp.computers;
+package com.herokuapp.computers.pages;
 
 import io.qameta.allure.Step;
 
@@ -23,8 +23,8 @@ public class ExistedComputerPage extends ComputerForm {
     }
 
     @Step
-    public BasePage fillAndSubmitComputerForm(String name, String startDate, String endDate, String companyName) {
-        fillComputerForm(name, startDate, endDate, companyName);
+    public BasePage fillAndSubmitComputerForm(String name, String intrDate, String discDate, String companyName) {
+        fillComputerForm(name, intrDate, discDate, companyName);
         submitComputerForm();
 
         return page(BasePage.class);

@@ -1,4 +1,4 @@
-package com.herokuapp.computers;
+package com.herokuapp.computers.pages;
 
 import io.qameta.allure.Step;
 
@@ -14,18 +14,18 @@ public abstract class ComputerForm {
     private static final String COMPANY_SELECTOR = "#company";
 
     @Step
-    void fillComputerForm(String name, String startDate, String endDate, String companyName) {
+    void fillComputerForm(String name, String intrDate, String discDate, String companyName) {
         $(COMPUTER_NAME_INPUT).val(name);
-        $(INTRODUCED_DATE_INPUT).val(startDate);
-        $(DISCONTINUED_DATE_INPUT).val(endDate);
+        $(INTRODUCED_DATE_INPUT).val(intrDate);
+        $(DISCONTINUED_DATE_INPUT).val(discDate);
         $(COMPANY_SELECTOR).selectOptionContainingText(companyName);
     }
 
     @Step
-    void fillComputerForm(String name, String startDate, String endDate) {
+    void fillComputerForm(String name, String intrDate, String discDate) {
         $(COMPUTER_NAME_INPUT).val(name);
-        $(INTRODUCED_DATE_INPUT).val(startDate);
-        $(DISCONTINUED_DATE_INPUT).val(endDate);
+        $(INTRODUCED_DATE_INPUT).val(intrDate);
+        $(DISCONTINUED_DATE_INPUT).val(discDate);
     }
     @Step
     void fillComputerForm(String name) {

@@ -1,4 +1,4 @@
-package com.herokuapp.computers;
+package com.herokuapp.computers.pages;
 
 import io.qameta.allure.Step;
 

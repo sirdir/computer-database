@@ -1,16 +1,13 @@
-package com.herokuapp.computers;
+package com.herokuapp.computers.tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
-import static com.codeborne.selenide.Selenide.open;
+import static com.herokuapp.computers.utils.Config.BASE_URL;
 
 public class BaseTest {
-
-    final static String BASE_URL = "http://computer-database.herokuapp.com/computers";
 
     @BeforeSuite
     public void setUp() {

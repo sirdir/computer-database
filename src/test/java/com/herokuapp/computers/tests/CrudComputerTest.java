@@ -1,34 +1,29 @@
-package com.herokuapp.computers;
+package com.herokuapp.computers.tests;
 
+import com.codeborne.selenide.Selenide;
+import com.herokuapp.computers.pages.BasePage;
+import com.herokuapp.computers.pages.ExistedComputerPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
+import static com.herokuapp.computers.utils.Config.*;
 
 public class CrudComputerTest extends BaseTest{
 
     private String createComputerName = "pc_" + System.nanoTime();
-    private String startDate = "2010-01-01";
-    private String endDate = "2020-01-01";
-    private String companyName = "IBM";
     private String changedComputerName = "new_pc_" + System.nanoTime();
-    private String changedStartDate = "2018-05-30";
-    private String changedEndDate = "2023-10-03";
-    private String changedCompanyName = "ASUS";
-    private String createMsg = "Done! Computer %s has been created";
-    private String updateMsg = "Done! Computer %s has been updated";
-    private String deleteMsg = "Done! Computer has been deleted";
+
 
     @Test
     public void createComputer() {
-        String expMessage = String.format(createMsg, createComputerName);
-
-        String actualMessage = open(BASE_URL, BasePage.class)
+        String actualMessage = Selenide.open(BASE_URL, BasePage.class)
                 .addNewPC()
-                .fillAndSubmitComputerForm(createComputerName, startDate, endDate, companyName)
+                .fillAndSubmitComputerForm(createComputerName, DEFAULT_INTRODUCED, DEFAULT_DISCONTINUED, DEFAULT_COMPANY)
                 .getMessage();
+
+        String expMessage = String.format(CREATE_MESSAGE, createComputerName);
 
         Assert.assertEquals(actualMessage, expMessage, "alert message");
     }
@@ -47,22 +42,26 @@ public class CrudComputerTest extends BaseTest{
         SoftAssert sf = new SoftAssert();
 
         sf.assertEquals(actualComputerName, createComputerName);
-        sf.assertEquals(actualStartDate, startDate);
-        sf.assertEquals(actualEndDate, endDate);
-        sf.assertEquals(actualCompany, companyName);
+        sf.assertEquals(actualStartDate, DEFAULT_INTRODUCED);
+        sf.assertEquals(actualEndDate, DEFAULT_DISCONTINUED);
+        sf.assertEquals(actualCompany, DEFAULT_COMPANY);
 
         sf.assertAll();
     }
 
     @Test(dependsOnMethods = "readComputer")
     public void updateComputer() {
-        String expMessage = String.format(updateMsg, changedComputerName);
+        String changedStartDate = "2018-05-30";
+        String changedEndDate = "2023-10-03";
+        String changedCompanyName = "ASUS";
 
         String actualMessage = open(BASE_URL, BasePage.class)
                 .searchByName(createComputerName)
                 .openFirstComputer()
                 .fillAndSubmitComputerForm(changedComputerName, changedStartDate, changedEndDate, changedCompanyName)
                 .getMessage();
+
+        String expMessage = String.format(UPDATE_MESSAGE, changedComputerName);
 
         Assert.assertEquals(actualMessage, expMessage, "alert message");
     }
@@ -75,7 +74,7 @@ public class CrudComputerTest extends BaseTest{
                 .deleteComputer()
                 .getMessage();
 
-        Assert.assertEquals(actualMessage, deleteMsg, "alert message");
+        Assert.assertEquals(actualMessage, DELETE_MESSAGE, "alert message");
     }
 
 }

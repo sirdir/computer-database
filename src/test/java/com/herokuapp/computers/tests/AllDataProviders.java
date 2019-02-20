@@ -1,4 +1,4 @@
-package com.herokuapp.computers;
+package com.herokuapp.computers.tests;
 
 import org.testng.annotations.DataProvider;
 
@@ -18,8 +18,6 @@ public class AllDataProviders {
         return new Object[][] {
                 //same date
                 {"2018-01-01", "2018-01-01"},
-                //only introduction
-                {"2018-10-10", ""},
                 //days
                 {"2018-01-31", "2019-01-31"},
                 {"2018-02-28", "2019-02-28"},
@@ -49,7 +47,6 @@ public class AllDataProviders {
                 //month
                 {"2018-00-01", "2019-00-01"},
                 {"2018-13-01", "2019-13-01"},
-                {"", "2019-13-01"},
                 //era boundary
                 {"1000000000-01-01", "1000000000-01-01"},
                 {"-0001-01-01", "-0001-01-01"},
